@@ -18,6 +18,10 @@ var restify = require('restify')
   console.log(' /products/:id')//
 })
 
+var getCounter = 0;
+var postCounter = 0;
+var deleteCounter = 0;
+
 server
   // Allow the use of POST
   .use(restify.fullResponse())
@@ -28,9 +32,13 @@ server
 // Get all products in the system
 server.get('/products', function (req, res, next) {   //
 
+  console.log('>GET: Request Received');
+    getCounter++;
+    console.log('Processed Request Count--> Get: '+getCounter+', Post: '+postCounter);
   // Find every entity within the given collection
   productsSave.find({}, function (error, products) {//
 
+    
     // Return all of the users in the system
     res.send(products)//
   })
@@ -58,6 +66,9 @@ server.get('/products/:id', function (req, res, next) { //
 // Create a new product
 server.post('/products', function (req, res, next) {//
 
+  console.log('>GET: Request Received');
+  postCounter++;
+    console.log('Processed Request Count--> Get: '+getCounter+', Post: '+postCounter);
   // Make sure product is defined
   if (req.params.product === undefined ) {//
     // If there are any errors, pass them to next in the correct format
